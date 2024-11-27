@@ -1,0 +1,907 @@
+/* global */
+:root {
+  --standard-height: calc(100vh - 140px);
+  --one-blue: #00538d;
+  --two-blue: #c6e5f9;
+  --three-blue: #9ccceb;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.App.ar {
+  text-align-last: end;
+}
+.App.ar input {
+  text-align: end;
+}
+input {
+  outline: none;
+  text-align: start;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+button {
+  cursor: pointer;
+}
+.search-component form div {
+  width: 95%;
+  position: relative;
+  margin: 0 auto;
+}
+.search-component form input {
+  background-color: var(--two-blue);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 100%;
+}
+.search-component.search-user {
+  position: relative;
+}
+.search-component.search-user form > div {
+  width: 100%;
+}
+.search-component.search-user form svg {
+  background-color: transparent;
+  color: black;
+}
+.search-component.search-user .userlist {
+  position: absolute;
+  background: white;
+  width: 100%;
+  overflow-y: scroll;
+  height: 191px;
+}
+.search-component.search-user .userlist.rel {
+  position: relative;
+}
+.search-component.search-user .userlist .user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+/* animation */
+.loader-animation {
+  border: 16px solid #f3f3f3; /* لون الحدود */
+  border-top: 16px solid black; /* لون الجزء المتحرك */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* component */
+button.main {
+  background-color: var(--two-blue);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+svg.sweam {
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+  background: #274b78;
+  color: white;
+  padding: 15px;
+  border-radius: 11px;
+  cursor: pointer;
+}
+.container .popp {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  padding: 10px;
+  height: 100vh;
+  background: transparent;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  cursor: no-drop;
+}
+.container .popp .create {
+  background: var(--three-blue);
+  border-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 5px 3px 0px #0000004a;
+  width: 85%;
+  padding: 20px;
+  z-index: 101;
+  cursor: auto;
+  position: relative;
+}
+.container .popp .create svg {
+  background-color: var(--one-blue);
+  width: fit-content;
+  color: white;
+  padding: 7px;
+  border-radius: 11px;
+  margin-bottom: 10px;
+}
+.container .popp .create input {
+  border: none;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  border-radius: 10px;
+}
+.container .popp .create button {
+  background-color: var(--one-blue);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 7px;
+  margin: 0 auto;
+}
+.popp.doctor .create {
+  transform: translateY(0%);
+  position: fixed;
+}
+.popp.doctor .create.full {
+  overflow: scroll;
+  height: 100%;
+  width: 100%;
+}
+.popp.doctor .create input {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+}
+/* top nav */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px;
+  align-items: center;
+}
+.top-nav svg {
+  background-color: rgba(163, 159, 159, 0.178);
+  padding: 7px 10px;
+  width: 10px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+}
+.top-nav > div {
+  display: flex;
+  gap: 5px;
+}
+.top-nav .background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: #00000057;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+.top-nav .background.close {
+  display: none;
+}
+.top-nav .dots {
+  position: fixed;
+  background-color: white;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  width: 72%;
+  right: 0;
+  height: 100vh;
+  top: 0;
+  top: 0;
+  border-radius: 18px 0px 0px 18px;
+  color: var(--one-blue);
+  transition: 1s;
+}
+.top-nav .dots.close {
+  right: -100%;
+}
+.top-nav .dots .close svg {
+  background-color: var(--one-blue);
+  color: white;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
+  margin: 20px;
+}
+.top-nav .dots .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #716b6b;
+  padding-bottom: 10px;
+  margin: 25px;
+}
+.top-nav .dots .img {
+  background: url(./image/userOrange.jpg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fed36b;
+  width: 80px;
+}
+.top-nav .dots .lest {
+  display: flex;
+  flex-direction: column;
+  margin: 0 25px;
+  gap: 10px;
+}
+.top-nav .dots .lest > div,
+.top-nav .dots .lest > a {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--one-blue);
+}
+.top-nav .dots .lest > div svg,
+.top-nav .dots .lest > a svg {
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+}
+/* buttom nav */
+.buttom-nav {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--one-blue);
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 20px 20px 0 0;
+}
+.buttom-nav svg {
+  font-size: 20px;
+  color: white;
+  position: relative;
+  padding: 10px;
+  border-radius: 50%;
+}
+.buttom-nav a {
+  position: relative;
+}
+.buttom-nav a.active::before {
+  content: "";
+  position: absolute;
+  width: 81px;
+  height: 85px;
+  border-radius: 42px;
+  top: -48px;
+  background-color: var(--two-blue);
+  right: 50%;
+  transform: translateX(50%);
+}
+.buttom-nav .active svg {
+  background: var(--one-blue);
+  color: #85abc7;
+  top: -13px;
+  width: 20px;
+  height: 20px;
+}
+
+/* auth */
+.auth .welcome {
+  padding: 30px;
+}
+.form {
+  padding: 10px;
+  border-radius: 21px 21px 0px 0px;
+  min-height: var(--standard-height);
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.form .background,
+.home-page .types .background,
+.about-page .container .background {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #c2e3f9ee;
+  z-index: -1;
+  top: 30px;
+  left: 0px;
+  border-radius: 20px 20px 0 0;
+}
+.auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+}
+.auth form > div {
+  width: 100%;
+  position: relative;
+}
+.auth form input {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 100%;
+}
+.auth form svg,
+.search-component form svg,
+.user-page form svg.password,
+.user-page .showProfile svg {
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  opacity: 0.7;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.App.ar .auth form svg,
+.App.ar .search-component form svg,
+.App.ar .user-page form svg.password,
+.App.ar .showProfile svg {
+  left: 20px;
+}
+.auth .form button {
+  background-color: var(--one-blue);
+  color: white;
+  width: fit-content;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px auto;
+}
+.auth .form a {
+  color: rgb(42, 42, 202);
+  font-size: 12px;
+  width: fit-content;
+  margin-left: 10px;
+}
+.auth form span {
+  background: indianred;
+  color: white;
+  width: fit-content;
+  padding: 8px 20px;
+  font-size: 16px;
+  position: relative;
+  left: -100%;
+  transition: 1s;
+  border-radius: 10px;
+}
+.auth form .error {
+  left: 0%;
+}
+/* user-page */
+.user-page .my-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px;
+}
+.App.ar .user-page .my-profile {
+  flex-direction: row-reverse;
+}
+.user-page .my-profile .img {
+  padding: 10px;
+  width: 38px;
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50% 50%;
+}
+.user-page .my-profile img {
+  width: 38px;
+  height: 50px;
+  position: absolute;
+}
+.user-page form,
+.user-page .showProfile {
+  padding: 10px;
+  border-radius: 21px 21px 0px 0px;
+  min-height: var(--standard-height);
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.user-page .form .background {
+  z-index: -1;
+  top: 0px;
+}
+.user-page form > div,
+.showProfile > div {
+  width: 100%;
+  position: relative;
+}
+.user-page form > div.buttons {
+  display: flex;
+  flex-direction: column;
+}
+.user-page form > div.image {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+.App.ar .user-page form > div.image {
+  align-items: end;
+}
+.user-page form input,
+.showProfile input {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 100%;
+}
+.user-page button {
+  background-color: var(--one-blue);
+  color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px auto;
+  min-width: 80px;
+  display: flex;
+  justify-content: center;
+}
+.user-page form .photo,
+.user-page .showProfile .photo {
+  position: relative;
+  margin: 9px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-image: url(./image/userWhite.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.user-page form .photo input.file,
+.user-page .showProfile .photo input.file {
+  display: none;
+}
+.user-page form .photo svg {
+  position: absolute;
+  bottom: 11px;
+  right: 0px;
+  background-color: var(--two-blue);
+  padding: 9px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.home-page .container {
+  position: relative;
+  min-height: var(--standard-height);
+}
+.home-page .types {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  row-gap: 30px;
+  margin-top: 30px;
+  border-radius: 21px 21px 0px 0px;
+}
+.home-page .types > a {
+  box-shadow: 0px 5px 3px 0px #0000004a;
+  width: 130px;
+  height: 110px;
+  margin: 0 auto;
+  border-radius: 12px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.home-page .types img {
+  width: 70px;
+}
+/* notification-page */
+.notification-page .boxs {
+  background-color: var(--two-blue);
+  min-height: var(--standard-height);
+  margin-top: 60px;
+  padding: 10px;
+  border-radius: 35px 35px 0 0;
+}
+.notification-page .boxs .box {
+  display: flex;
+  align-items: center;
+  font-size: 0.6rem;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+.App.ar .notification-page .boxs .box {
+  flex-direction: row-reverse;
+}
+.notification-page .left img {
+  width: 46px;
+  border-radius: 50%;
+}
+.notification-page .right {
+  margin: 0 10px;
+  width: 80%;
+}
+.notification-page .right p,
+.notification-page .right span {
+  font-size: 12px;
+  color: #000000ad;
+}
+.notification-page .right > div {
+  border-bottom: 1px solid #635f5f94;
+  padding-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.App.ar .notification-page .right > div {
+  flex-direction: row-reverse;
+}
+.App.ar .notification-page .right svg {
+  transform: rotate(180deg);
+}
+/* about-page */
+.about-page .head {
+  padding: 5px 25px;
+  color: rgba(0, 0, 0, 0.726);
+}
+.about-page .container {
+  padding: 10px;
+  border-radius: 21px 21px 0px 0px;
+  min-height: var(--standard-height);
+  position: relative;
+}
+.about-page .box {
+  background-color: white;
+  box-shadow: 0px 4px 3px 0px #0000008c;
+  border-radius: 12px;
+}
+.about-page .box .info {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  padding: 6px;
+}
+.App.ar .about-page .box .info {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.about-page .box .info .img {
+  overflow: hidden;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-image: url(./image/userOrange.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.about-page .box .info .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  margin-left: 6px;
+}
+.about-page .box .info .right .top {
+  background-color: var(--two-blue);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 30px;
+  align-items: center;
+  width: fit-content;
+  gap: 20px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+.about-page .box .info .right .buttom {
+  background-color: var(--two-blue);
+  border-radius: 30px;
+  padding: 10px;
+  font-size: 12px;
+}
+.about-page .box .info .right .buttom p {
+  color: #274b78b8;
+}
+.about-page .box .info .right .buttom span {
+  color: #274b78;
+  font-weight: bold;
+}
+.about-page .box .name {
+  background-color: var(--two-blue);
+  color: #274b78;
+  border-radius: 20px;
+  padding: 5px 0;
+  margin: 16px 0px;
+  display: flex;
+  justify-content: center;
+}
+.about-page .box .time {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+.about-page .box .time > div {
+  display: flex;
+  align-items: center;
+  background-color: var(--two-blue);
+  color: #274b78;
+  border-radius: 20px;
+  padding: 10px;
+  justify-content: left;
+  margin-right: 20px;
+  font-size: 13px;
+}
+.about-page .box .icon {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+}
+.about-page .box .icon svg {
+  color: white;
+  font-size: 10px;
+  background-color: var(--one-blue);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.about-page .social {
+  background-color: white;
+  box-shadow: 0px 4px 3px 0px #0000008c;
+  border-radius: 12px;
+  color: var(--one-blue);
+  width: 150px;
+  padding: 6px 4px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.about-page .location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--one-blue);
+  font-weight: bold;
+  font-size: 13px;
+}
+.about-page .location svg {
+  font-size: 18px;
+}
+/* registers-page */
+.registers-page .head,
+.messages-page .head {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+  gap: 30px;
+}
+.registers-page .head button,
+.messages-page .head button {
+  background-color: var(--two-blue);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.registers-page svg {
+  cursor: pointer;
+}
+.registers-page .head button.acitve {
+  background-color: var(--one-blue);
+}
+.messages-page .head button.acitve {
+  background-color: var(--one-blue);
+}
+.registers-page .container,
+.messages-page .container {
+  background-color: var(--two-blue);
+  border-radius: 35px 35px 0 0;
+  padding: 30px 30px;
+  min-height: var(--standard-height);
+  margin-top: 70px;
+}
+.registers-page .container .box {
+  background-color: white;
+  box-shadow: 0px 4px 3px 0px #0000008c;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.registers-page .container .box > div {
+  display: flex;
+}
+.App.ar .registers-page .container .box > div {
+  flex-direction: row-reverse;
+}
+.registers-page .container .box > div.doctor {
+  gap: 10px;
+  justify-content: end;
+}
+.App.ar .registers-page .container .box > div.doctor {
+  justify-content: start;
+}
+.registers-page .container .box > div.doctor button {
+  background-color: var(--one-blue);
+}
+.registers-page .container .box h4 {
+  color: #274b78;
+}
+.registers-page .container .box p {
+  color: #736b6b;
+  margin: 0 5px;
+}
+.registers-page .container .box span {
+  justify-content: end;
+  display: flex;
+  margin: 5px 15px;
+}
+.App.ar .registers-page .container .box span {
+  justify-content: start;
+}
+.registers-page .container .box span.doctor {
+  color: #6d6a6a;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
+.App.ar .registers-page .container .box span.doctor {
+  justify-content: start;
+}
+.registers-page .container .search-component form input {
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  color: black;
+}
+.registers-page .container .create button {
+  background-color: var(--one-blue);
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  width: fit-content;
+  border-radius: 7px;
+  margin: 0 auto;
+}
+.registers-page .container > svg {
+  position: fixed;
+  bottom: 60px;
+  right: 30px;
+  background: #274b78;
+  color: white;
+  padding: 15px;
+  border-radius: 11px;
+  cursor: pointer;
+}
+/* messages-page */
+.messages-page .container {
+  min-height: var(--standard-height);
+}
+.messages-page .create {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.messages-page .create h3,
+.messages-page .create span,
+.messages-page .select h3 {
+  background-color: white;
+  padding: 5px;
+  border-radius: 12px;
+  font-weight: 300;
+  font-size: 15px;
+}
+.messages-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.messages-page form > div {
+  width: 100%;
+  position: relative;
+}
+.messages-page form input {
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 100%;
+}
+.messages-page form svg,
+.search-component form svg {
+  width: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  opacity: 0.7;
+  cursor: pointer;
+  opacity: 0.4;
+}
+.App.ar .messages-page form svg,
+.App.ar .search-component form svg {
+  left: 20px;
+}
+.messages-page .select h3 {
+  width: fit-content;
+  margin-bottom: 10px;
+}
+.messages-page .select img {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
+}
+.messages-page .select input {
+  display: none;
+}
+/* doctor */
+.registers-page .container .box.doctor > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.App.ar .registers-page .container .box.doctor > div {
+  flex-direction: row-reverse;
+}
+.registers-page .container .box.doctor > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.registers-page .container .box.doctor > div > div > div {
+  display: flex;
+  gap: 10px;
+}
+.App.ar .registers-page .container .box.doctor > div > div > div {
+  flex-direction: row-reverse;
+}
